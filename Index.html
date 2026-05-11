@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modonix Upwork Qualifier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAF6EE;
+  --bg-card: #FFFCF5;
+  --ink: #1A1A1A;
+  --ink-soft: #5A5147;
+  --line: #E0D5C0;
+  --line-soft: #EDE4D2;
+  --accent: #8B1A1A;
+  --accent-dark: #6B1313;
+  --go: #2D5A3D;
+  --nogo: #8B1A1A;
+  --cond: #B8860B;
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Geist', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.55;
+  min-height: 100vh;
+  padding: 32px 20px 80px;
+}
+.wrap { max-width: 920px; margin: 0 auto; }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 32px;
+}
+.brand { font-family: var(--serif); font-weight: 600; }
+.brand .label {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.brand h1 { font-size: 32px; letter-spacing: -0.02em; line-height: 1.1; }
+.gear-btn {
+  background: none;
+  border: 1px solid var(--line);
+  padding: 8px 14px;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s;
+}
+.gear-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.form-grid { display: grid; gap: 18px; }
+.field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+.field .hint {
+  font-size: 12px;
+  color: var(--ink-soft);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: 8px;
+}
+textarea, input[type="text"], input[type="number"], input[type="password"], select {
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 14px;
+  padding: 10px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  color: var(--ink);
+  transition: border-color 0.15s;
+}
+textarea { resize: vertical; min-height: 80px; }
+textarea:focus, input:focus, select:focus { outline: none; border-color: var(--accent); }
+.row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.row3 input { font-family: var(--mono); }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.row2 input { font-family: var(--mono); }
+
+.submit-row { margin-top: 28px; display: flex; gap: 12px; align-items: center; }
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.15s;
+}
+.btn-primary:hover { background: var(--accent-dark); }
+.btn-primary:disabled { background: #999; cursor: not-allowed; }
+.btn-secondary {
+  background: none;
+  border: 1px solid var(--line);
+  padding: 12px 20px;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  border-radius: 2px;
+}
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+.status { font-size: 13px; color: var(--ink-soft); margin-left: auto; }
+
+.results { margin-top: 48px; display: none; }
+.results.show { display: block; }
+.verdict-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  padding: 28px 32px;
+  border-radius: 2px;
+  margin-bottom: 24px;
+}
+.verdict-card.go { border-left-color: var(--go); }
+.verdict-card.nogo { border-left-color: var(--nogo); }
+.verdict-card.cond { border-left-color: var(--cond); }
+
+.verdict-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  gap: 24px;
+}
+.verdict-badge {
+  font-family: var(--serif);
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.verdict-badge.go { color: var(--go); }
+.verdict-badge.nogo { color: var(--nogo); }
+.verdict-badge.cond { color: var(--cond); }
+
+.score-block { text-align: right; }
+.score-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+}
+.score-value { font-family: var(--mono); font-size: 32px; font-weight: 600; color: var(--ink); }
+.score-value .small { font-size: 18px; color: var(--ink-soft); }
+
+.headline {
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 500;
+  color: var(--ink);
+  margin-top: 12px;
+}
+
+.section {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  padding: 20px 24px;
+  border-radius: 2px;
+  margin-bottom: 16px;
+}
+.section h3 {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.section p { font-size: 14px; line-height: 1.6; }
+.section ul { list-style: none; }
+.section ul li {
+  font-size: 14px;
+  line-height: 1.55;
+  padding: 6px 0 6px 18px;
+  position: relative;
+}
+.section ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 13px;
+  width: 8px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 640px) {
+  .two-col { grid-template-columns: 1fr; }
+  .row3 { grid-template-columns: 1fr; }
+  .row2 { grid-template-columns: 1fr; }
+  .verdict-top { flex-direction: column; }
+  .score-block { text-align: left; }
+}
+
+.meta-row {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line-soft);
+}
+.meta-item .meta-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+}
+.meta-item .meta-value {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Strategy boxes (Rate + Connect) */
+.strategy-section {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--accent);
+  padding: 20px 24px;
+  border-radius: 2px;
+  margin-bottom: 16px;
+}
+.strategy-section h3 {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+.strategy-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.strategy-grid.two { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 640px) {
+  .strategy-grid { grid-template-columns: 1fr 1fr; }
+  .strategy-grid.two { grid-template-columns: 1fr; }
+}
+.stat .stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+}
+.stat .stat-value {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.stat .stat-value.warn { color: var(--cond); }
+.stat .stat-value.bad { color: var(--nogo); }
+.stat .stat-value.good { color: var(--go); }
+.strategy-note {
+  padding-top: 14px;
+  border-top: 1px solid var(--line-soft);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.strategy-note + .strategy-note { padding-top: 8px; border-top: none; }
+
+.modal-bg {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(26,26,26,0.5);
+  z-index: 100;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 60px 20px;
+  overflow-y: auto;
+}
+.modal-bg.show { display: flex; }
+.modal {
+  background: var(--bg-card);
+  border-radius: 4px;
+  max-width: 640px;
+  width: 100%;
+  padding: 32px;
+  border: 1px solid var(--line);
+}
+.modal h2 { font-family: var(--serif); font-size: 24px; font-weight: 600; margin-bottom: 6px; }
+.modal .sub { font-size: 13px; color: var(--ink-soft); margin-bottom: 24px; }
+.modal .field { margin-bottom: 18px; }
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.loading {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--line);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.error {
+  background: #FCEEEE;
+  border: 1px solid #E5B8B8;
+  color: var(--accent);
+  padding: 12px 16px;
+  border-radius: 2px;
+  font-size: 13px;
+  margin-top: 16px;
+}
+
+.generate-draft-row { margin-top: 24px; display: flex; gap: 12px; align-items: center; }
+.draft-section {
+  margin-top: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  padding: 24px;
+  border-radius: 2px;
+}
+.draft-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.draft-head h3 {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.draft-body {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  color: var(--ink);
+  padding: 18px 20px;
+  background: var(--bg);
+  border: 1px dashed var(--line);
+  border-radius: 2px;
+}
+.copy-btn {
+  background: none;
+  border: 1px solid var(--line);
+  padding: 6px 14px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s;
+}
+.copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+.copy-btn.copied { border-color: var(--go); color: var(--go); }
+.word-count {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-soft);
+  margin-top: 8px;
+  text-align: right;
+}
+
+.next-job-row {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+.next-job-row button {
+  padding: 12px 32px;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="brand">
+    <div class="label">Modonix</div>
+    <h1>Upwork Qualifier</h1>
+  </div>
+  <button class="gear-btn" onclick="openSettings()">Settings</button>
+</header>
+
+<div class="form-grid">
+
+  <div class="field">
+    <label>Job Summary <span class="hint">paste the full job description</span></label>
+    <textarea id="jobSummary" rows="5" placeholder="Audit my existing Google Ads PPC account..."></textarea>
+  </div>
+
+  <div class="two-col">
+    <div class="field">
+      <label>Mandatory Skills</label>
+      <textarea id="mandatorySkills" rows="2" placeholder="Google Ads, Google Analytics"></textarea>
+    </div>
+    <div class="field">
+      <label>Nice-to-have Skills</label>
+      <textarea id="niceSkills" rows="2" placeholder="PPC, Bing Ads"></textarea>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Client Qualifying Questions <span class="hint">optional</span></label>
+    <textarea id="clientQuestions" rows="2" placeholder="Experience with ad campaigns in the healthcare field?"></textarea>
+  </div>
+
+  <div class="field">
+    <label>Client Budget <span class="hint">what the client posted, e.g. "$20-35/hr" or "$500 fixed" or "$1500-2000/mo"</span></label>
+    <input type="text" id="clientBudget" placeholder='e.g. $20-35/hr  OR  $500 fixed  OR  $1500-2000/mo'>
+  </div>
+
+  <div class="field">
+    <label>Competition Bids <span class="hint">what other freelancers are bidding (low / avg / high)</span></label>
+    <div class="row3">
+      <input type="text" id="bidLow" placeholder="Low e.g. 29">
+      <input type="text" id="bidAvg" placeholder="Avg e.g. 64.76">
+      <input type="text" id="bidHigh" placeholder="High e.g. 200">
+    </div>
+  </div>
+
+  <div class="field">
+    <label>My Proposed Rate <span class="hint">optional. leave blank to get a recommendation</span></label>
+    <input type="text" id="myRate" placeholder="e.g. 35 (hourly) or 450 (fixed)">
+  </div>
+
+  <div class="field">
+    <label>Activity Signals <span class="hint">optional but high signal</span></label>
+    <div class="row3">
+      <input type="text" id="proposals" placeholder="Proposals e.g. 20 to 50">
+      <input type="text" id="interviewing" placeholder="Interviewing e.g. 7">
+      <input type="text" id="invites" placeholder="Invites sent e.g. 5">
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Connect Economics <span class="hint">required / top boost visible / my boost budget</span></label>
+    <div class="row3">
+      <input type="text" id="connectsRequired" placeholder="Required e.g. 16">
+      <input type="text" id="topBoost" placeholder="Top Boost e.g. 100">
+      <input type="text" id="myBoost" placeholder="My Boost e.g. 30">
+    </div>
+  </div>
+
+</div>
+
+<div class="submit-row">
+  <button class="btn-primary" id="analyzeBtn" onclick="analyze()">Analyze</button>
+  <button class="btn-secondary" onclick="clearForm()">Clear</button>
+  <span class="status" id="status"></span>
+</div>
+
+<div id="errorBox"></div>
+
+<div class="results" id="results"></div>
+
+</div>
+
+<div class="modal-bg" id="settingsModal">
+  <div class="modal">
+    <h2>Settings</h2>
+    <p class="sub">Stored locally in your browser. Nothing is sent anywhere except the Anthropic API.</p>
+
+    <div class="field">
+      <label>Anthropic API Key</label>
+      <input type="password" id="apiKey" placeholder="sk-ant-...">
+    </div>
+
+    <div class="field">
+      <label>Model</label>
+      <select id="modelSelect">
+        <option value="claude-sonnet-4-6">claude-sonnet-4-6 (recommended)</option>
+        <option value="claude-opus-4-7">claude-opus-4-7</option>
+        <option value="claude-opus-4-6">claude-opus-4-6</option>
+        <option value="claude-haiku-4-5-20251001">claude-haiku-4-5 (fastest)</option>
+        <option value="claude-sonnet-4-20250514">claude-sonnet-4-20250514 (legacy)</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Cost per Connect (USD) <span class="hint">default 0.15</span></label>
+      <input type="text" id="connectCost" placeholder="0.15">
+    </div>
+
+    <div class="field">
+      <label>Your Profile <span class="hint">the operator profile we built together</span></label>
+      <textarea id="profile" rows="14" placeholder="OPERATOR PROFILE: Ahmed..."></textarea>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeSettings()">Cancel</button>
+      <button class="btn-primary" onclick="saveSettings()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'upwork_qualifier_v1';
+
+let lastResult = null;
+let lastInputs = null;
+
+function loadSettings() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return { apiKey: '', model: 'claude-sonnet-4-6', profile: '', connectCost: '0.15' };
+  try {
+    const obj = JSON.parse(raw);
+    if (!obj.connectCost) obj.connectCost = '0.15';
+    return obj;
+  } catch { return { apiKey: '', model: 'claude-sonnet-4-6', profile: '', connectCost: '0.15' }; }
+}
+
+function saveSettingsObj(obj) { localStorage.setItem(STORAGE_KEY, JSON.stringify(obj)); }
+
+function openSettings() {
+  const s = loadSettings();
+  document.getElementById('apiKey').value = s.apiKey || '';
+  document.getElementById('modelSelect').value = s.model || 'claude-sonnet-4-6';
+  document.getElementById('profile').value = s.profile || '';
+  document.getElementById('connectCost').value = s.connectCost || '0.15';
+  document.getElementById('settingsModal').classList.add('show');
+}
+function closeSettings() { document.getElementById('settingsModal').classList.remove('show'); }
+function saveSettings() {
+  const apiKey = document.getElementById('apiKey').value.trim();
+  const model = document.getElementById('modelSelect').value;
+  const profile = document.getElementById('profile').value.trim();
+  const connectCost = document.getElementById('connectCost').value.trim() || '0.15';
+  saveSettingsObj({ apiKey, model, profile, connectCost });
+  closeSettings();
+  setStatus('Settings saved.');
+  setTimeout(() => setStatus(''), 2000);
+}
+
+function setStatus(msg, isLoading = false) {
+  const el = document.getElementById('status');
+  el.innerHTML = isLoading ? `<span class="loading"></span>${msg}` : msg;
+}
+
+function showError(msg) {
+  document.getElementById('errorBox').innerHTML = `<div class="error">${msg}</div>`;
+}
+function clearError() { document.getElementById('errorBox').innerHTML = ''; }
+
+function clearForm() {
+  ['jobSummary','mandatorySkills','niceSkills','clientQuestions','clientBudget','bidLow','bidAvg','bidHigh','myRate','proposals','interviewing','invites','connectsRequired','topBoost','myBoost']
+    .forEach(id => document.getElementById(id).value = '');
+  document.getElementById('results').classList.remove('show');
+  document.getElementById('results').innerHTML = '';
+  lastResult = null;
+  lastInputs = null;
+  clearError();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.getElementById('jobSummary').focus();
+}
+
+async function analyze() {
+  clearError();
+  const settings = loadSettings();
+  if (!settings.apiKey) { showError('Set your Anthropic API key in Settings first.'); return; }
+  if (!settings.profile) { showError('Add your profile in Settings first.'); return; }
+
+  const jobSummary = document.getElementById('jobSummary').value.trim();
+  if (!jobSummary) { showError('Paste the job summary first.'); return; }
+
+  const inputs = {
+    jobSummary,
+    mandatorySkills: document.getElementById('mandatorySkills').value.trim(),
+    niceSkills: document.getElementById('niceSkills').value.trim(),
+    clientQuestions: document.getElementById('clientQuestions').value.trim(),
+    clientBudget: document.getElementById('clientBudget').value.trim(),
+    bidLow: document.getElementById('bidLow').value.trim(),
+    bidAvg: document.getElementById('bidAvg').value.trim(),
+    bidHigh: document.getElementById('bidHigh').value.trim(),
+    myRate: document.getElementById('myRate').value.trim(),
+    proposals: document.getElementById('proposals').value.trim(),
+    interviewing: document.getElementById('interviewing').value.trim(),
+    invites: document.getElementById('invites').value.trim(),
+    connectsRequired: document.getElementById('connectsRequired').value.trim(),
+    topBoost: document.getElementById('topBoost').value.trim(),
+    myBoost: document.getElementById('myBoost').value.trim(),
+    connectCost: settings.connectCost || '0.15'
+  };
+  lastInputs = inputs;
+
+  const btn = document.getElementById('analyzeBtn');
+  btn.disabled = true;
+  setStatus('Evaluating fit...', true);
+
+  const userPrompt = `MY PROFILE
+${settings.profile}
+
+JOB POSTING
+Summary: ${inputs.jobSummary}
+
+Mandatory skills: ${inputs.mandatorySkills || '(none specified)'}
+Nice-to-have skills: ${inputs.niceSkills || '(none specified)'}
+Client qualifying questions: ${inputs.clientQuestions || '(none)'}
+
+Client posted budget: ${inputs.clientBudget || '(not specified)'}
+Competition bids (USD/hr): Low ${inputs.bidLow || '?'} | Avg ${inputs.bidAvg || '?'} | High ${inputs.bidHigh || '?'}
+My intended proposed rate: ${inputs.myRate || '(not specified, recommend one)'}
+
+Activity signals:
+- Total proposals: ${inputs.proposals || '(unknown)'}
+- Already interviewing: ${inputs.interviewing || '(unknown)'}
+- Invites sent by client: ${inputs.invites || '(unknown)'}
+
+Connect economics:
+- Connects required to submit: ${inputs.connectsRequired || '(unknown)'}
+- Top boost visible (Connects to beat #1): ${inputs.topBoost || '(unknown or no boost)'}
+- My intended boost spend: ${inputs.myBoost || '0 (no boost)'}
+- Cost per Connect: $${inputs.connectCost}
+
+Now evaluate this job and return the JSON object only.`;
+
+  const systemPrompt = `You are a ruthless, experienced Upwork bid strategist evaluating whether a freelancer should submit a proposal. Your job is to save the freelancer time and Connects with a fast, honest GO / NO_GO / CONDITIONAL verdict.
+
+DECISION PRINCIPLES:
+
+1. SKILLS FIT: Mandatory skills must be present or have strong adjacent experience. A mismatch is usually NO_GO.
+
+2. VERTICAL/DOMAIN FIT: If the job asks for specific industry experience the freelancer lacks, flag it honestly. Lying is never recommended.
+
+3. COMPETITION READ:
+   - Interviewing 5+: very low win probability, usually CONDITIONAL or NO_GO.
+   - 50+ proposals: high competition, needs sharp differentiator.
+   - 5+ invites sent: client is actively shopping.
+
+4. PROFILE LEVERAGE: Does the freelancer have an unusual angle competing bidders don't? Strong signal if yes.
+
+5. RATE STRATEGY (CRITICAL):
+   - "Client posted budget" = what the client said they'll pay (e.g. "$20-35/hr" or "$500 fixed").
+   - "Competition bids" = what other freelancers are actually bidding (more accurate market signal than client's stated max).
+   - "My intended proposed rate" = what the freelancer plans to charge.
+   - Freelancer's floor and review status are in their profile.
+
+   Rate validation:
+   - If client budget MAX is below freelancer's floor: NO_GO. Client cannot afford the floor.
+   - If client budget overlaps floor: workable, but freelancer must bid at or near their floor.
+   - For a NEW ACCOUNT (zero reviews, from profile), recommended rate:
+     * At or just above the freelancer's floor
+     * At or below the client's posted max (above max = likely auto-filtered out)
+     * Between competition LOW and competition AVG (ideally close to AVG)
+     * NEVER below competition LOW (looks desperate, signals low quality)
+     * For first 3-5 jobs, the goal is winning the review, not maximizing rate
+   - For a freelancer with 5+ reviews: can price at competition AVG or 10-20% above.
+
+   Validate "My intended proposed rate" if provided:
+   - Above client budget max: FLAG (auto-filter risk)
+   - Below freelancer's floor: FLAG (underpricing)
+   - Above competition HIGH: FLAG (hard to justify without strong profile)
+   - At or below competition LOW: FLAG (signals desperate)
+   - Otherwise: OK
+
+6. CONNECT ECONOMICS (CRITICAL for new accounts):
+   - Total Connect spend = required + my boost
+   - Total dollar cost = Connects × cost per Connect
+   - Project value:
+     * If hourly: avg hourly rate × expected hours (default 20 hrs if unknown)
+     * If fixed-price: total budget
+   - Win probability (be honest):
+     * Strong fit + low competition + top boost position: 25-40%
+     * Strong fit + moderate competition: 10-20%
+     * Partial fit + moderate competition: 3-8%
+     * Weak fit or high competition: under 3%
+     * Halve all of these for new accounts with no reviews
+   - Expected revenue = project value × win probability
+   - Position estimate:
+     * My Boost >= Top Boost: position 1
+     * My Boost ≈ half Top Boost: position 3-5
+     * My Boost = 0 with Top Boost 50+: position 10+ (not visible)
+     * No boost competition at all: position depends on proposal quality, treat as 5-10
+   - ROI ratio = expected revenue / dollar cost
+   - ROI < 3x: NO_GO. ROI 3-10x: CONDITIONAL. ROI > 10x: favorable for GO.
+   - For new accounts: cap acceptable Connect spend at ~$5 unless the job is clearly high-value and high-fit.
+
+OVERALL VERDICT:
+- GO: strong skills fit, manageable competition, budget compatible, Connect economics favorable.
+- CONDITIONAL: partial fit OR marginal Connect ROI. Worth bidding only with sharp honest opener AND modest Connect spend.
+- NO_GO: missing core skill, OR crushing competition, OR budget below floor, OR negative Connect ROI.
+
+TIME ESTIMATE:
+- GO low competition: 10-15 min
+- GO high competition: 15-20 min
+- CONDITIONAL: 5-10 min max
+- NO_GO: 0 min
+
+Return ONLY a JSON object, no preamble or markdown fences:
+{
+  "verdict": "GO" | "NO_GO" | "CONDITIONAL",
+  "fit_score": <integer 0-100>,
+  "headline_reason": "<one sentence, the most important reason>",
+  "competition_read": "<one sentence assessing activity signals>",
+  "strengths": ["<bullet>", "<bullet>"],
+  "gaps": ["<bullet>", "<bullet>"],
+  "strategic_angle": "<1-2 sentences. If GO/CONDITIONAL: the opener angle. If NO_GO: 'Skip this one.'>",
+  "time_estimate_minutes": <integer>,
+  "win_probability": "low" | "medium" | "high",
+  "rate_strategy": {
+    "recommended_rate": "<e.g. $32/hr or $32-35/hr or $400 fixed>",
+    "my_rate_assessment": "<one sentence on whether the freelancer's proposed rate is appropriate. If blank: 'No rate proposed, use recommendation.'>",
+    "rate_rationale": "<one sentence explaining the rate logic given account stage, client budget, and competition>"
+  },
+  "connect_strategy": {
+    "recommended_boost": <integer, Connects to spend on boost>,
+    "total_connect_spend": <integer, required + recommended boost>,
+    "dollar_cost": "<e.g. $4.80>",
+    "estimated_position": "<e.g. #1 (top), #3-5, or '10+ (not visible)'>",
+    "expected_value": "<e.g. $45>",
+    "roi_multiple": "<e.g. 9.4x>",
+    "roi_assessment": "<one sentence on whether the Connect spend is justified>"
+  }
+}
+
+Be direct and unflinching. The freelancer prefers ruthless, constructive feedback over polite hedging.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': settings.apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: settings.model,
+        max_tokens: 2500,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: userPrompt }]
+      })
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`API ${res.status}: ${errText.slice(0, 200)}`);
+    }
+
+    const data = await res.json();
+    const text = data.content.map(b => b.text || '').join('').trim();
+    const cleanText = text.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim();
+
+    let parsed;
+    try {
+      parsed = JSON.parse(cleanText);
+    } catch (e) {
+      const match = cleanText.match(/\{[\s\S]*\}/);
+      if (!match) throw new Error('Could not parse model response as JSON.');
+      parsed = JSON.parse(match[0]);
+    }
+
+    lastResult = parsed;
+    renderResults(parsed);
+    setStatus('Done.');
+    setTimeout(() => setStatus(''), 2000);
+  } catch (err) {
+    showError(`Error: ${err.message}`);
+    setStatus('');
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function renderResults(r) {
+  const verdictClass = r.verdict === 'GO' ? 'go' : r.verdict === 'NO_GO' ? 'nogo' : 'cond';
+  const verdictText = r.verdict === 'NO_GO' ? 'NO-GO' : r.verdict;
+
+  const strengthsHtml = (r.strengths || []).map(s => `<li>${escapeHtml(s)}</li>`).join('');
+  const gapsHtml = (r.gaps || []).map(g => `<li>${escapeHtml(g)}</li>`).join('');
+
+  const rs = r.rate_strategy || {};
+
+  let html = `
+    <div class="verdict-card ${verdictClass}">
+      <div class="verdict-top">
+        <div><div class="verdict-badge ${verdictClass}">${verdictText}</div></div>
+        <div class="score-block">
+          <div class="score-label">Fit Score</div>
+          <div class="score-value">${r.fit_score}<span class="small">/100</span></div>
+        </div>
+      </div>
+      <div class="headline">${escapeHtml(r.headline_reason || '')}</div>
+      <div class="meta-row">
+        <div class="meta-item">
+          <div class="meta-label">Recommended Rate</div>
+          <div class="meta-value">${escapeHtml(rs.recommended_rate || '—')}</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Time Budget</div>
+          <div class="meta-value">${r.time_estimate_minutes || 0} min</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Win Probability</div>
+          <div class="meta-value">${escapeHtml((r.win_probability || '—').toUpperCase())}</div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Rate Strategy section
+  if (r.rate_strategy) {
+    html += `
+      <div class="strategy-section">
+        <h3>Rate Strategy</h3>
+        <div class="strategy-grid two">
+          <div class="stat">
+            <div class="stat-label">Recommended Rate</div>
+            <div class="stat-value good">${escapeHtml(rs.recommended_rate || '—')}</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">My Rate Check</div>
+            <div class="stat-value">${escapeHtml((rs.my_rate_assessment || '').split('.')[0] + (rs.my_rate_assessment ? '.' : ''))}</div>
+          </div>
+        </div>
+        <div class="strategy-note">
+          <strong>Why:</strong> ${escapeHtml(rs.rate_rationale || '')}
+        </div>
+        ${rs.my_rate_assessment ? `<div class="strategy-note"><strong>On your proposed rate:</strong> ${escapeHtml(rs.my_rate_assessment)}</div>` : ''}
+      </div>
+    `;
+  }
+
+  // Connect Strategy section
+  if (r.connect_strategy) {
+    const cs = r.connect_strategy;
+    const pos = (cs.estimated_position || '').toLowerCase();
+    let posClass = '';
+    if (pos.includes('not visible') || pos.includes('10+')) posClass = 'bad';
+    else if (pos.includes('#1') || pos.includes('top')) posClass = 'good';
+    else if (pos.includes('3-5') || pos.includes('2')) posClass = 'warn';
+
+    const roiNum = parseFloat((cs.roi_multiple || '0').replace('x', ''));
+    let roiClass = 'bad';
+    if (roiNum >= 10) roiClass = 'good';
+    else if (roiNum >= 3) roiClass = 'warn';
+
+    html += `
+      <div class="strategy-section">
+        <h3>Connect Strategy</h3>
+        <div class="strategy-grid">
+          <div class="stat">
+            <div class="stat-label">Recommended Boost</div>
+            <div class="stat-value">${cs.recommended_boost ?? 0}</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Total Spend</div>
+            <div class="stat-value">${cs.total_connect_spend ?? 0} C / ${escapeHtml(cs.dollar_cost || '$0')}</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Position</div>
+            <div class="stat-value ${posClass}">${escapeHtml(cs.estimated_position || '—')}</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">ROI Multiple</div>
+            <div class="stat-value ${roiClass}">${escapeHtml(cs.roi_multiple || '—')}</div>
+          </div>
+        </div>
+        <div class="strategy-note">
+          <strong>Expected value:</strong> ${escapeHtml(cs.expected_value || '—')}. ${escapeHtml(cs.roi_assessment || '')}
+        </div>
+      </div>
+    `;
+  }
+
+  html += `
+    <div class="section">
+      <h3>Competition Read</h3>
+      <p>${escapeHtml(r.competition_read || '')}</p>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3>Strengths</h3>
+        <ul>${strengthsHtml || '<li>None identified</li>'}</ul>
+      </div>
+      <div class="section">
+        <h3>Gaps</h3>
+        <ul>${gapsHtml || '<li>None identified</li>'}</ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Strategic Angle</h3>
+      <p>${escapeHtml(r.strategic_angle || '')}</p>
+    </div>
+  `;
+
+  if (r.verdict === 'GO' || r.verdict === 'CONDITIONAL') {
+    html += `
+      <div class="generate-draft-row">
+        <button class="btn-primary" id="draftBtn" onclick="generateDraft()">Generate Cover Letter Draft</button>
+      </div>
+      <div id="draftContainer"></div>
+    `;
+  }
+
+  html += `
+    <div class="next-job-row">
+      <button class="btn-secondary" onclick="clearForm()">Clear & Next Job</button>
+    </div>
+  `;
+
+  const out = document.getElementById('results');
+  out.innerHTML = html;
+  out.classList.add('show');
+  out.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+async function generateDraft() {
+  if (!lastResult || !lastInputs) return;
+  const settings = loadSettings();
+
+  const btn = document.getElementById('draftBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading"></span>Writing...';
+
+  const systemPrompt = `You are writing an Upwork cover letter (proposal) for Ahmed, an operational e-commerce consultant. The goal is a tight, direct proposal that wins the project.
+
+VOICE AND STYLE RULES (CRITICAL, NON-NEGOTIABLE):
+- NO em dashes anywhere. Use commas, periods, or colons instead.
+- NO filler openers: never start with "I hope you're doing well", "Just reaching out", "I came across your job posting", "I'm excited to apply", "Thank you for considering", "My name is".
+- NO "I'm a perfect fit" or "I'm the right person" claims. Show fit through specifics.
+- NO bulleted service menu listing audit items.
+- Direct and operational tone. Diagnose the problem before pitching the solution.
+- Keep it 120-180 words.
+- Open with "Hi," (no name).
+- Close softly: "Happy to walk through the [account/setup/funnel] and flag where the biggest opportunities are."
+- Sign off with exactly: "Thanks,\\nAhmed"
+
+STRUCTURE:
+1. OPENER: Diagnose the likely root cause in one specific sentence. Use the strategic_angle as the seed.
+2. If client asked a qualifying question, answer it HONESTLY. If Ahmed lacks direct experience, say so and bridge to transferable expertise.
+3. ONE credibility paragraph with a specific proof point, ideally with a number.
+4. APPROACH paragraph: 2-3 sentences with specific technical detail.
+5. Soft close + signature.
+
+CONDITIONAL handling: must acknowledge the gap honestly. Honesty is the wedge.
+
+Return ONLY the cover letter text. Start with "Hi," and end with "Ahmed".`;
+
+  const userPrompt = `MY PROFILE
+${settings.profile}
+
+JOB POSTING
+Summary: ${lastInputs.jobSummary}
+Mandatory skills: ${lastInputs.mandatorySkills || '(none specified)'}
+Nice-to-have skills: ${lastInputs.niceSkills || '(none specified)'}
+Client qualifying questions: ${lastInputs.clientQuestions || '(none)'}
+
+QUALIFIER ASSESSMENT (use this to shape the letter)
+Verdict: ${lastResult.verdict}
+Headline reason: ${lastResult.headline_reason}
+Strategic angle: ${lastResult.strategic_angle}
+Strengths: ${(lastResult.strengths || []).join('; ')}
+Gaps to acknowledge honestly: ${(lastResult.gaps || []).join('; ')}
+
+Write the cover letter now. Return only the letter text.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': settings.apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: settings.model,
+        max_tokens: 800,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: userPrompt }]
+      })
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`API ${res.status}: ${errText.slice(0, 200)}`);
+    }
+
+    const data = await res.json();
+    const text = data.content.map(b => b.text || '').join('').trim();
+
+    renderDraft(text);
+  } catch (err) {
+    showError(`Draft error: ${err.message}`);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Regenerate Draft';
+  }
+}
+
+function renderDraft(text) {
+  const wordCount = text.trim().split(/\s+/).length;
+  const container = document.getElementById('draftContainer');
+  container.innerHTML = `
+    <div class="draft-section">
+      <div class="draft-head">
+        <h3>Cover Letter Draft</h3>
+        <button class="copy-btn" id="copyBtn" onclick="copyDraft()">Copy</button>
+      </div>
+      <div class="draft-body" id="draftBody">${escapeHtml(text)}</div>
+      <div class="word-count">${wordCount} words</div>
+    </div>
+  `;
+  container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function copyDraft() {
+  const text = document.getElementById('draftBody').textContent;
+  const btn = document.getElementById('copyBtn');
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    btn.textContent = 'Copy failed';
+    setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+  });
+}
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const s = loadSettings();
+  if (!s.apiKey || !s.profile) {
+    setStatus('First run: open Settings to add your API key and profile.');
+  }
+});
+</script>
+</body>
+</html>
