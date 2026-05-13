@@ -41,7 +41,7 @@ header {
   align-items: flex-end;
   padding-bottom: 24px;
   border-bottom: 1px solid var(--line);
-  margin-bottom: 32px;
+  margin-bottom: 0;
 }
 .brand { font-family: var(--serif); font-weight: 600; }
 .brand .label {
@@ -54,6 +54,13 @@ header {
   margin-bottom: 4px;
 }
 .brand h1 { font-size: 32px; letter-spacing: -0.02em; line-height: 1.1; }
+.brand .version {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-soft);
+  margin-left: 8px;
+  letter-spacing: 0.05em;
+}
 .gear-btn {
   background: none;
   border: 1px solid var(--line);
@@ -66,6 +73,63 @@ header {
   transition: all 0.15s;
 }
 .gear-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* TABS */
+.tab-bar {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 32px;
+}
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 14px 24px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.tab-btn:hover { color: var(--ink); }
+.tab-btn.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.tab-btn:disabled {
+  color: #BBB;
+  cursor: not-allowed;
+}
+.tab-btn:disabled:hover { color: #BBB; }
+.tab-badge {
+  display: inline-block;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 9px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 18px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.tab-btn:disabled .tab-badge { display: none; }
+.tab-btn:not(.active) .tab-badge { background: var(--ink-soft); }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
 
 .form-grid { display: grid; gap: 18px; }
 .field label {
@@ -432,6 +496,293 @@ textarea:focus, input:focus, select:focus { outline: none; border-color: var(--a
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
+
+/* ============ DISCUSS TAB ============ */
+.discuss-empty {
+  background: var(--bg-card);
+  border: 1px dashed var(--line);
+  padding: 64px 32px;
+  text-align: center;
+  border-radius: 2px;
+}
+.discuss-empty h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+.discuss-empty p {
+  font-size: 14px;
+  color: var(--ink-soft);
+  max-width: 480px;
+  margin: 0 auto 20px;
+  line-height: 1.6;
+}
+.discuss-empty .examples {
+  font-size: 13px;
+  color: var(--ink-soft);
+  text-align: left;
+  max-width: 480px;
+  margin: 24px auto 0;
+  padding: 16px 20px;
+  background: var(--bg);
+  border-left: 2px solid var(--accent);
+  font-style: italic;
+}
+
+.analysis-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+.analysis-bar select {
+  flex: 1;
+  font-family: var(--sans);
+  font-size: 13px;
+  padding: 7px 10px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+.analysis-bar .bar-btn {
+  background: none;
+  border: 1px solid var(--line);
+  padding: 7px 12px;
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+.analysis-bar .bar-btn:hover { border-color: var(--accent); color: var(--accent); }
+.analysis-bar .bar-btn.danger:hover { border-color: var(--nogo); color: var(--nogo); }
+
+.mini-verdict {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  padding: 16px 20px;
+  border-radius: 2px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.mini-verdict.go { border-left-color: var(--go); }
+.mini-verdict.nogo { border-left-color: var(--nogo); }
+.mini-verdict.cond { border-left-color: var(--cond); }
+.mini-verdict .mv-badge {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.mini-verdict .mv-badge.go { color: var(--go); }
+.mini-verdict .mv-badge.nogo { color: var(--nogo); }
+.mini-verdict .mv-badge.cond { color: var(--cond); }
+.mini-verdict .mv-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.mini-verdict .mv-meta span { color: var(--ink-soft); }
+.mini-verdict .mv-meta strong { color: var(--ink); font-weight: 600; }
+.mini-verdict .mv-headline {
+  flex-basis: 100%;
+  font-family: var(--serif);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+  margin-top: 6px;
+}
+
+.chat-area {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  min-height: 480px;
+}
+.chat-messages {
+  flex: 1;
+  padding: 20px 24px;
+  overflow-y: auto;
+  max-height: 560px;
+}
+.chat-empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.chat-empty-state .seed {
+  display: inline-block;
+  margin: 6px;
+  padding: 8px 14px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--ink);
+  transition: all 0.15s;
+}
+.chat-empty-state .seed:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.msg {
+  display: flex;
+  margin-bottom: 18px;
+}
+.msg.user { justify-content: flex-end; }
+.msg.assistant { justify-content: flex-start; }
+.msg-bubble {
+  max-width: 86%;
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  position: relative;
+}
+.msg.user .msg-bubble {
+  background: #F4E9D3;
+  border: 1px solid #DBC9A6;
+  color: var(--ink);
+}
+.msg.assistant .msg-bubble {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+.msg.assistant.draft .msg-bubble {
+  background: #F9F4E6;
+  border: 1px solid var(--cond);
+  border-left: 3px solid var(--cond);
+}
+.msg-actions {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.msg-bubble:hover .msg-actions { opacity: 1; }
+.msg-actions button {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  padding: 3px 8px;
+  font-family: var(--sans);
+  font-size: 10px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  border-radius: 2px;
+}
+.msg-actions button:hover { border-color: var(--accent); color: var(--accent); }
+.msg-actions button.copied { border-color: var(--go); color: var(--go); }
+.msg-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cond);
+  margin-bottom: 6px;
+  padding: 2px 6px;
+  background: rgba(184, 134, 11, 0.1);
+  border-radius: 2px;
+}
+.streaming-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 14px;
+  background: var(--accent);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 1s steps(2) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.chat-input-area {
+  border-top: 1px solid var(--line);
+  padding: 16px 20px;
+  background: var(--bg-card);
+}
+.chat-input-area textarea {
+  width: 100%;
+  min-height: 70px;
+  font-family: var(--sans);
+  font-size: 14px;
+  padding: 10px 12px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  resize: vertical;
+}
+.chat-input-area textarea:focus { outline: none; border-color: var(--accent); }
+.chat-input-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.chat-input-row .hint {
+  font-size: 11px;
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  margin-left: auto;
+}
+.chat-btn-draft {
+  background: var(--cond);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.chat-btn-draft:hover { background: #9a710a; }
+.chat-btn-draft:disabled { background: #BBB; cursor: not-allowed; }
+.chat-btn-send {
+  padding: 10px 22px;
+  font-size: 12px;
+}
+.chat-btn-stop {
+  background: #BBB;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.chat-btn-stop:hover { background: #888; }
 </style>
 </head>
 <body>
@@ -440,10 +791,20 @@ textarea:focus, input:focus, select:focus { outline: none; border-color: var(--a
 <header>
   <div class="brand">
     <div class="label">Modonix</div>
-    <h1>Upwork Qualifier</h1>
+    <h1>Upwork Qualifier<span class="version">v2</span></h1>
   </div>
   <button class="gear-btn" onclick="openSettings()">Settings</button>
 </header>
+
+<div class="tab-bar">
+  <button class="tab-btn active" id="tabBtnAnalyze" onclick="switchTab('analyze')">Analyze</button>
+  <button class="tab-btn" id="tabBtnDiscuss" onclick="switchTab('discuss')">
+    Discuss <span class="tab-badge" id="discussBadge"></span>
+  </button>
+</div>
+
+<!-- ===================== ANALYZE TAB ===================== -->
+<div class="tab-panel active" id="tab-analyze">
 
 <div class="form-grid">
 
@@ -518,6 +879,49 @@ textarea:focus, input:focus, select:focus { outline: none; border-color: var(--a
 <div class="results" id="results"></div>
 
 </div>
+<!-- ===================== END ANALYZE TAB ===================== -->
+
+<!-- ===================== DISCUSS TAB ===================== -->
+<div class="tab-panel" id="tab-discuss">
+
+  <div id="discussEmpty" class="discuss-empty">
+    <h3>Nothing to discuss yet</h3>
+    <p>Run an analysis on the Analyze tab first. Then come here to talk through your reasoning, push back on the verdict, add context the qualifier didn't have, and draft a proposal that reflects your final position.</p>
+    <div class="examples">
+      Example: the qualifier says NO_GO on a low-budget local job, but you want to do it as a learning gig. Talk it through here, the bot pushes back where your reasoning is weak, and the final draft reflects the real decision.
+    </div>
+  </div>
+
+  <div id="discussActive" style="display:none;">
+
+    <div class="analysis-bar">
+      <select id="analysisSelect" onchange="switchAnalysis(this.value)"></select>
+      <button class="bar-btn" onclick="clearActiveChat()">Clear chat</button>
+      <button class="bar-btn danger" onclick="deleteActiveAnalysis()">Delete</button>
+    </div>
+
+    <div id="miniVerdict"></div>
+
+    <div class="chat-area">
+      <div class="chat-messages" id="chatMessages"></div>
+
+      <div class="chat-input-area">
+        <textarea id="chatInput" placeholder="Push back, add context, ask a question..." onkeydown="handleChatKey(event)"></textarea>
+        <div class="chat-input-row">
+          <button class="btn-primary chat-btn-send" id="chatSendBtn" onclick="sendChatMessage()">Send</button>
+          <button class="chat-btn-stop" id="chatStopBtn" onclick="stopStreaming()" style="display:none;">Stop</button>
+          <button class="chat-btn-draft" id="chatDraftBtn" onclick="generateDraftFromChat()" title="Generate a proposal based on this conversation">Draft Proposal</button>
+          <span class="hint">Cmd/Ctrl+Enter to send</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<!-- ===================== END DISCUSS TAB ===================== -->
+
+</div>
 
 <div class="modal-bg" id="settingsModal">
   <div class="modal">
@@ -558,11 +962,16 @@ textarea:focus, input:focus, select:focus { outline: none; border-color: var(--a
 </div>
 
 <script>
-const STORAGE_KEY = 'upwork_qualifier_v1';
+const STORAGE_KEY  = 'upwork_qualifier_v1';
+const ANALYSES_KEY = 'upwork_qualifier_analyses_v1';
+const MAX_ANALYSES = 10;
 
 let lastResult = null;
 let lastInputs = null;
+let currentAnalysisId = null;
+let streamAbortController = null;
 
+/* ============ SETTINGS ============ */
 function loadSettings() {
   const raw = localStorage.getItem(STORAGE_KEY);
   if (!raw) return { apiKey: '', model: 'claude-sonnet-4-6', profile: '', connectCost: '0.15' };
@@ -605,6 +1014,107 @@ function showError(msg) {
 }
 function clearError() { document.getElementById('errorBox').innerHTML = ''; }
 
+/* ============ ANALYSES STORAGE ============ */
+function loadAnalyses() {
+  try {
+    const raw = localStorage.getItem(ANALYSES_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch { return []; }
+}
+
+function saveAnalyses(analyses) {
+  try {
+    localStorage.setItem(ANALYSES_KEY, JSON.stringify(analyses));
+  } catch (e) {
+    // Storage full, trim aggressively and retry
+    const trimmed = analyses.slice(0, 3);
+    try { localStorage.setItem(ANALYSES_KEY, JSON.stringify(trimmed)); }
+    catch { console.warn('Could not save analyses even after trimming:', e); }
+  }
+}
+
+function pushAnalysis(inputs, result) {
+  const analyses = loadAnalyses();
+  const preview = (inputs.jobSummary || '(no summary)').slice(0, 70).replace(/\s+/g, ' ').trim();
+  const newAnalysis = {
+    id: 'a_' + Date.now(),
+    createdAt: new Date().toISOString(),
+    preview,
+    inputs,
+    result,
+    messages: []
+  };
+  analyses.unshift(newAnalysis);
+  if (analyses.length > MAX_ANALYSES) analyses.length = MAX_ANALYSES;
+  saveAnalyses(analyses);
+  currentAnalysisId = newAnalysis.id;
+  updateDiscussTabState();
+  return newAnalysis;
+}
+
+function getCurrentAnalysis() {
+  const analyses = loadAnalyses();
+  if (!analyses.length) return null;
+  const found = analyses.find(a => a.id === currentAnalysisId);
+  return found || analyses[0];
+}
+
+function updateCurrentMessages(messages) {
+  const analyses = loadAnalyses();
+  const idx = analyses.findIndex(a => a.id === currentAnalysisId);
+  if (idx >= 0) {
+    analyses[idx].messages = messages;
+    saveAnalyses(analyses);
+  }
+  updateDiscussTabState();
+}
+
+function deleteActiveAnalysis() {
+  const analyses = loadAnalyses();
+  const active = getCurrentAnalysis();
+  if (!active) return;
+  if (!confirm(`Delete this analysis and its chat?\n\n"${active.preview}..."\n\nThis can't be undone.`)) return;
+  const filtered = analyses.filter(a => a.id !== active.id);
+  saveAnalyses(filtered);
+  currentAnalysisId = filtered.length ? filtered[0].id : null;
+  renderDiscussTab();
+  updateDiscussTabState();
+}
+
+function clearActiveChat() {
+  const active = getCurrentAnalysis();
+  if (!active) return;
+  if (!confirm('Clear the chat for this analysis? The verdict stays. The conversation is wiped.')) return;
+  updateCurrentMessages([]);
+  renderDiscussTab();
+}
+
+function updateDiscussTabState() {
+  const analyses = loadAnalyses();
+  const btn = document.getElementById('tabBtnDiscuss');
+  const badge = document.getElementById('discussBadge');
+  if (analyses.length === 0) {
+    btn.disabled = true;
+    badge.textContent = '';
+    return;
+  }
+  btn.disabled = false;
+  const active = getCurrentAnalysis();
+  const msgCount = active ? (active.messages || []).length : 0;
+  badge.textContent = msgCount > 0 ? String(msgCount) : '';
+}
+
+/* ============ TABS ============ */
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  const btn = document.getElementById('tabBtn' + name.charAt(0).toUpperCase() + name.slice(1));
+  if (btn && !btn.disabled) btn.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+  if (name === 'discuss') renderDiscussTab();
+}
+
+/* ============ FORM ============ */
 function clearForm() {
   ['jobSummary','mandatorySkills','niceSkills','clientQuestions','clientBudget','bidLow','bidAvg','bidHigh','myRate','proposals','interviewing','invites','connectsRequired','topBoost','myBoost']
     .forEach(id => document.getElementById(id).value = '');
@@ -814,9 +1324,10 @@ Be direct and unflinching. The freelancer prefers ruthless, constructive feedbac
     }
 
     lastResult = parsed;
+    pushAnalysis(inputs, parsed);
     renderResults(parsed);
-    setStatus('Done.');
-    setTimeout(() => setStatus(''), 2000);
+    setStatus('Done. Click Discuss tab to talk it through.');
+    setTimeout(() => setStatus(''), 4000);
   } catch (err) {
     showError(`Error: ${err.message}`);
     setStatus('');
@@ -861,7 +1372,6 @@ function renderResults(r) {
     </div>
   `;
 
-  // Rate Strategy section
   if (r.rate_strategy) {
     html += `
       <div class="strategy-section">
@@ -884,7 +1394,6 @@ function renderResults(r) {
     `;
   }
 
-  // Connect Strategy section
   if (r.connect_strategy) {
     const cs = r.connect_strategy;
     const pos = (cs.estimated_position || '').toLowerCase();
@@ -949,14 +1458,16 @@ function renderResults(r) {
     </div>
   `;
 
+  html += `
+    <div class="generate-draft-row">
+      <button class="btn-secondary" onclick="switchTab('discuss')">Talk This Through →</button>
+  `;
   if (r.verdict === 'GO' || r.verdict === 'CONDITIONAL') {
-    html += `
-      <div class="generate-draft-row">
-        <button class="btn-primary" id="draftBtn" onclick="generateDraft()">Generate Cover Letter Draft</button>
-      </div>
+    html += `<button class="btn-primary" id="draftBtn" onclick="generateDraft()">Generate Cover Letter Draft</button>`;
+  }
+  html += `</div>
       <div id="draftContainer"></div>
     `;
-  }
 
   html += `
     <div class="next-job-row">
@@ -978,29 +1489,7 @@ async function generateDraft() {
   btn.disabled = true;
   btn.innerHTML = '<span class="loading"></span>Writing...';
 
-  const systemPrompt = `You are writing an Upwork cover letter (proposal) for Ahmed, an operational e-commerce consultant. The goal is a tight, direct proposal that wins the project.
-
-VOICE AND STYLE RULES (CRITICAL, NON-NEGOTIABLE):
-- NO em dashes anywhere. Use commas, periods, or colons instead.
-- NO filler openers: never start with "I hope you're doing well", "Just reaching out", "I came across your job posting", "I'm excited to apply", "Thank you for considering", "My name is".
-- NO "I'm a perfect fit" or "I'm the right person" claims. Show fit through specifics.
-- NO bulleted service menu listing audit items.
-- Direct and operational tone. Diagnose the problem before pitching the solution.
-- Keep it 120-180 words.
-- Open with "Hi," (no name).
-- Close softly: "Happy to walk through the [account/setup/funnel] and flag where the biggest opportunities are."
-- Sign off with exactly: "Thanks,\\nAhmed"
-
-STRUCTURE:
-1. OPENER: Diagnose the likely root cause in one specific sentence. Use the strategic_angle as the seed.
-2. If client asked a qualifying question, answer it HONESTLY. If Ahmed lacks direct experience, say so and bridge to transferable expertise.
-3. ONE credibility paragraph with a specific proof point, ideally with a number.
-4. APPROACH paragraph: 2-3 sentences with specific technical detail.
-5. Soft close + signature.
-
-CONDITIONAL handling: must acknowledge the gap honestly. Honesty is the wedge.
-
-Return ONLY the cover letter text. Start with "Hi," and end with "Ahmed".`;
+  const systemPrompt = buildDraftSystemPrompt();
 
   const userPrompt = `MY PROFILE
 ${settings.profile}
@@ -1054,6 +1543,32 @@ Write the cover letter now. Return only the letter text.`;
   }
 }
 
+function buildDraftSystemPrompt() {
+  return `You are writing an Upwork cover letter (proposal) for Ahmed, an operational e-commerce consultant. The goal is a tight, direct proposal that wins the project.
+
+VOICE AND STYLE RULES (CRITICAL, NON-NEGOTIABLE):
+- NO em dashes anywhere. Use commas, periods, or colons instead.
+- NO filler openers: never start with "I hope you're doing well", "Just reaching out", "I came across your job posting", "I'm excited to apply", "Thank you for considering", "My name is".
+- NO "I'm a perfect fit" or "I'm the right person" claims. Show fit through specifics.
+- NO bulleted service menu listing audit items.
+- Direct and operational tone. Diagnose the problem before pitching the solution.
+- Keep it 120-180 words.
+- Open with "Hi," (no name).
+- Close softly: "Happy to walk through the [account/setup/funnel] and flag where the biggest opportunities are."
+- Sign off with exactly: "Thanks,\\nAhmed"
+
+STRUCTURE:
+1. OPENER: Diagnose the likely root cause in one specific sentence. Use the strategic_angle as the seed.
+2. If client asked a qualifying question, answer it HONESTLY. If Ahmed lacks direct experience, say so and bridge to transferable expertise.
+3. ONE credibility paragraph with a specific proof point, ideally with a number.
+4. APPROACH paragraph: 2-3 sentences with specific technical detail.
+5. Soft close + signature.
+
+CONDITIONAL handling: must acknowledge the gap honestly. Honesty is the wedge.
+
+Return ONLY the cover letter text. Start with "Hi," and end with "Ahmed".`;
+}
+
 function renderDraft(text) {
   const wordCount = text.trim().split(/\s+/).length;
   const container = document.getElementById('draftContainer');
@@ -1086,8 +1601,324 @@ function copyDraft() {
   });
 }
 
+/* ============ DISCUSS TAB RENDERING ============ */
+function renderDiscussTab() {
+  const analyses = loadAnalyses();
+  const emptyEl = document.getElementById('discussEmpty');
+  const activeEl = document.getElementById('discussActive');
+
+  if (!analyses.length) {
+    emptyEl.style.display = '';
+    activeEl.style.display = 'none';
+    return;
+  }
+  emptyEl.style.display = 'none';
+  activeEl.style.display = '';
+
+  if (!currentAnalysisId || !analyses.find(a => a.id === currentAnalysisId)) {
+    currentAnalysisId = analyses[0].id;
+  }
+  const active = getCurrentAnalysis();
+
+  const sel = document.getElementById('analysisSelect');
+  sel.innerHTML = analyses.map(a => {
+    const date = new Date(a.createdAt).toLocaleString();
+    const verdict = a.result?.verdict || '?';
+    const msgs = (a.messages || []).length;
+    const msgTag = msgs > 0 ? ` · ${msgs} msg${msgs === 1 ? '' : 's'}` : '';
+    return `<option value="${a.id}" ${a.id === currentAnalysisId ? 'selected' : ''}>${escapeHtml(verdict)} — ${escapeHtml(a.preview)} (${date}${msgTag})</option>`;
+  }).join('');
+
+  renderMiniVerdict(active);
+  renderChatMessages(active);
+}
+
+function renderMiniVerdict(a) {
+  const r = a.result || {};
+  const verdictClass = r.verdict === 'GO' ? 'go' : r.verdict === 'NO_GO' ? 'nogo' : 'cond';
+  const verdictText = r.verdict === 'NO_GO' ? 'NO-GO' : (r.verdict || '?');
+  const rs = r.rate_strategy || {};
+  document.getElementById('miniVerdict').innerHTML = `
+    <div class="mini-verdict ${verdictClass}">
+      <div class="mv-badge ${verdictClass}">${verdictText}</div>
+      <div class="mv-meta">
+        <span>FIT <strong>${r.fit_score ?? '?'}/100</strong></span>
+        <span>RATE <strong>${escapeHtml(rs.recommended_rate || '—')}</strong></span>
+        <span>TIME <strong>${r.time_estimate_minutes ?? 0}m</strong></span>
+        <span>WIN <strong>${escapeHtml((r.win_probability || '—').toUpperCase())}</strong></span>
+      </div>
+      <div class="mv-headline">${escapeHtml(r.headline_reason || '')}</div>
+    </div>
+  `;
+}
+
+function switchAnalysis(id) {
+  currentAnalysisId = id;
+  renderDiscussTab();
+  updateDiscussTabState();
+}
+
+function renderChatMessages(a) {
+  const container = document.getElementById('chatMessages');
+  const messages = a.messages || [];
+  if (!messages.length) {
+    const seeds = [
+      "Talk me out of this one",
+      "Why is this a NO-GO?",
+      "I want to bid anyway because...",
+      "What if I'm wrong about the rate?",
+      "Push back on me"
+    ];
+    container.innerHTML = `
+      <div class="chat-empty-state">
+        <p>Start the conversation. The bot has the full verdict and your profile loaded.<br>It will push back where your reasoning is weak.</p>
+        <div style="margin-top:14px;">
+          ${seeds.map(s => `<span class="seed" onclick="document.getElementById('chatInput').value='${s.replace(/'/g, "\\'")}'; document.getElementById('chatInput').focus();">${s}</span>`).join('')}
+        </div>
+      </div>
+    `;
+    return;
+  }
+  container.innerHTML = messages.map((m, idx) => renderMessageHtml(m, idx)).join('');
+  container.scrollTop = container.scrollHeight;
+}
+
+function renderMessageHtml(m, idx) {
+  const role = m.role;
+  const isDraft = m.isDraft;
+  const classes = `msg ${role}${isDraft ? ' draft' : ''}`;
+  const tag = isDraft ? '<div class="msg-tag">Proposal draft</div>' : '';
+  return `
+    <div class="${classes}">
+      <div class="msg-bubble">
+        ${tag}<div id="msg-content-${idx}">${escapeHtml(m.content)}</div>
+        ${role === 'assistant' ? `<div class="msg-actions"><button onclick="copyMessage(${idx})" id="msg-copy-${idx}">Copy</button></div>` : ''}
+      </div>
+    </div>
+  `;
+}
+
+function copyMessage(idx) {
+  const active = getCurrentAnalysis();
+  if (!active) return;
+  const m = (active.messages || [])[idx];
+  if (!m) return;
+  const btn = document.getElementById('msg-copy-' + idx);
+  navigator.clipboard.writeText(m.content).then(() => {
+    btn.textContent = 'Copied';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+/* ============ CHAT SENDING + STREAMING ============ */
+function handleChatKey(e) {
+  if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+    e.preventDefault();
+    sendChatMessage();
+  }
+}
+
+function buildChatSystemPrompt(active) {
+  const settings = loadSettings();
+  const r = active.result || {};
+  const i = active.inputs || {};
+  const rs = r.rate_strategy || {};
+  const cs = r.connect_strategy || {};
+
+  return `You are Ahmed's Upwork bid strategist, continuing a discussion about a specific job he's considering bidding on. The Upwork Qualifier already produced an initial verdict (below). Ahmed wants to talk it through before deciding.
+
+QUALIFIER VERDICT (the starting position, not a final ruling):
+- Verdict: ${r.verdict || '?'}
+- Fit Score: ${r.fit_score ?? '?'}/100
+- Headline reason: ${r.headline_reason || ''}
+- Strengths: ${(r.strengths || []).join('; ')}
+- Gaps: ${(r.gaps || []).join('; ')}
+- Strategic angle: ${r.strategic_angle || ''}
+- Competition read: ${r.competition_read || ''}
+- Time estimate: ${r.time_estimate_minutes ?? 0} min
+- Win probability: ${r.win_probability || '?'}
+- Recommended rate: ${rs.recommended_rate || '?'}
+- Rate rationale: ${rs.rate_rationale || ''}
+- Rate check on Ahmed's intended rate: ${rs.my_rate_assessment || ''}
+- Connect ROI: ${cs.roi_multiple || '?'} (${cs.roi_assessment || ''})
+
+JOB POSTING:
+- Summary: ${i.jobSummary || ''}
+- Mandatory skills: ${i.mandatorySkills || '(none)'}
+- Nice-to-have: ${i.niceSkills || '(none)'}
+- Client questions: ${i.clientQuestions || '(none)'}
+- Client budget: ${i.clientBudget || '(not posted)'}
+- Competition bids: Low ${i.bidLow || '?'} / Avg ${i.bidAvg || '?'} / High ${i.bidHigh || '?'}
+- Ahmed's intended rate: ${i.myRate || '(not specified)'}
+- Activity: ${i.proposals || '?'} proposals, ${i.interviewing || '?'} interviewing, ${i.invites || '?'} invites
+- Connect cost: ${i.connectsRequired || '?'} required + ${i.myBoost || '0'} boost
+
+AHMED'S PROFILE:
+${settings.profile}
+
+HOW TO ENGAGE:
+- Treat the qualifier's verdict as a STARTING POSITION, not a final ruling. If Ahmed brings context the qualifier didn't have (e.g., "this is a learning gig, not a revenue gig"), update your read accordingly.
+- PUSH BACK when Ahmed's reasoning is weak. Don't be a yes-man. Don't drift into agreement just because he's pushing. If he says "I need practice", ask whether he's already done practice gigs, whether the time has better uses, what specifically he's learning that's new.
+- Acknowledge when he makes a sound argument that changes the math. Say so plainly. If he doesn't, hold the line and explain why.
+- Use Ahmed's actual numbers from his profile (floor rate, review count, hours/week, vertical exclusions) to ground the pushback.
+- Stay direct. Operator briefing operator.
+
+VOICE RULES (NON-NEGOTIABLE):
+- NO em dashes anywhere. Use commas, periods, or colons instead.
+- No filler openers like "Great question", "Absolutely", "I understand", "That's a fair point".
+- No corporate hedging.
+- Keep responses tight: 3-6 short paragraphs max unless he asks for more.
+
+WHEN ASKED TO DRAFT THE PROPOSAL:
+- Pull in everything from this conversation, not just the original verdict.
+- Reflect Ahmed's FINAL position after discussion, even if that means writing a proposal for a job the qualifier flagged NO_GO.
+- If gaps were acknowledged in the conversation, acknowledge them honestly in the proposal.
+- Follow proposal voice rules: open with "Hi,", 120-180 words, no em dashes, soft close "Happy to walk through the [thing] and flag where the biggest opportunities are.", signature exactly "Thanks,\\nAhmed".
+- Output the proposal as plain text. Don't add commentary before or after unless explicitly asked.`;
+}
+
+async function sendChatMessage() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  const active = getCurrentAnalysis();
+  if (!active) return;
+  const settings = loadSettings();
+  if (!settings.apiKey) { alert('Set your Anthropic API key in Settings first.'); return; }
+
+  const messages = active.messages || [];
+  messages.push({ role: 'user', content: text });
+  updateCurrentMessages(messages);
+  input.value = '';
+  renderChatMessages(getCurrentAnalysis());
+
+  await runStreamingTurn(buildChatSystemPrompt(active));
+}
+
+async function generateDraftFromChat() {
+  const active = getCurrentAnalysis();
+  if (!active) return;
+  const settings = loadSettings();
+  if (!settings.apiKey) { alert('Set your Anthropic API key in Settings first.'); return; }
+
+  const messages = active.messages || [];
+  // Send a hidden directive to the bot
+  messages.push({
+    role: 'user',
+    content: 'Now draft the proposal based on everything we just discussed. Reflect my final position, not the original verdict. Output just the proposal text, no commentary before or after.'
+  });
+  updateCurrentMessages(messages);
+  renderChatMessages(getCurrentAnalysis());
+
+  await runStreamingTurn(buildChatSystemPrompt(active), { markNextAsDraft: true });
+}
+
+async function runStreamingTurn(systemPrompt, opts = {}) {
+  const settings = loadSettings();
+  const active = getCurrentAnalysis();
+  if (!active) return;
+
+  // Push a placeholder assistant message
+  const messages = active.messages || [];
+  const assistantIdx = messages.length;
+  messages.push({ role: 'assistant', content: '', isDraft: !!opts.markNextAsDraft });
+  updateCurrentMessages(messages);
+  renderChatMessages(getCurrentAnalysis());
+
+  // Show stop button, disable send/draft
+  document.getElementById('chatSendBtn').disabled = true;
+  document.getElementById('chatDraftBtn').disabled = true;
+  document.getElementById('chatStopBtn').style.display = '';
+
+  streamAbortController = new AbortController();
+
+  // Filter messages we send to the API (strip the empty placeholder we just added,
+  // and strip our `isDraft` flag since the API doesn't know about it)
+  const apiMessages = messages.slice(0, -1).map(m => ({ role: m.role, content: m.content }));
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      signal: streamAbortController.signal,
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': settings.apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: settings.model,
+        max_tokens: 2000,
+        system: systemPrompt,
+        stream: true,
+        messages: apiMessages
+      })
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`API ${res.status}: ${errText.slice(0, 200)}`);
+    }
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+    let acc = '';
+    const contentEl = document.getElementById('msg-content-' + assistantIdx);
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop() || '';
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        const data = line.slice(6).trim();
+        if (!data || data === '[DONE]') continue;
+        try {
+          const evt = JSON.parse(data);
+          if (evt.type === 'content_block_delta' && evt.delta?.type === 'text_delta') {
+            acc += evt.delta.text;
+            if (contentEl) {
+              contentEl.innerHTML = escapeHtml(acc) + '<span class="streaming-cursor"></span>';
+              const scroll = document.getElementById('chatMessages');
+              scroll.scrollTop = scroll.scrollHeight;
+            }
+          }
+        } catch (e) { /* partial chunk, ignore */ }
+      }
+    }
+
+    // Final write without cursor
+    if (contentEl) contentEl.innerHTML = escapeHtml(acc);
+    messages[assistantIdx].content = acc;
+    updateCurrentMessages(messages);
+  } catch (err) {
+    if (err.name === 'AbortError') {
+      // User stopped, keep what we have
+      messages[assistantIdx].content += '\n\n[stopped]';
+    } else {
+      messages[assistantIdx].content = 'Error: ' + err.message;
+    }
+    updateCurrentMessages(messages);
+    renderChatMessages(getCurrentAnalysis());
+  } finally {
+    document.getElementById('chatSendBtn').disabled = false;
+    document.getElementById('chatDraftBtn').disabled = false;
+    document.getElementById('chatStopBtn').style.display = 'none';
+    streamAbortController = null;
+  }
+}
+
+function stopStreaming() {
+  if (streamAbortController) streamAbortController.abort();
+}
+
+/* ============ UTILS ============ */
 function escapeHtml(s) {
-  return String(s)
+  return String(s ?? '')
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
@@ -1099,6 +1930,10 @@ window.addEventListener('DOMContentLoaded', () => {
   if (!s.apiKey || !s.profile) {
     setStatus('First run: open Settings to add your API key and profile.');
   }
+  // Restore most recent analysis as current
+  const analyses = loadAnalyses();
+  if (analyses.length) currentAnalysisId = analyses[0].id;
+  updateDiscussTabState();
 });
 </script>
 </body>
